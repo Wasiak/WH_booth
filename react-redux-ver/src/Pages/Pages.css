@@ -1,0 +1,7 @@
+.Page {
+    display: block;
+    width: 80%;
+    min-height: 500px;
+    margin: auto;
+    border: solid 1px #333;
+}
