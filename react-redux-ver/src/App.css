@@ -1,3 +1,14 @@
 .App {
   text-align: center;
 }
+
+.values-list {
+  margin-bottom: 15px;
+}
+
+.values-list span {
+  border: solid 1px #ccc;
+  padding: 8px;
+  margin: 3px;
+  display: inline-block;
+}

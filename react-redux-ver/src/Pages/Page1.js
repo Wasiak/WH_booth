@@ -4,8 +4,9 @@ import './Pages.css';
 const page1 = ( props ) => {
     return (
         <div className='Page'>
-            <p>this is page 1</p>
-            <button onClick={props.click}>go to page 2</button>
+            <p>this is welcome page 1</p>
+            <p>here company name, logo, some samples</p>
+            <button onClick={props.click}>Start personalization</button>
         </div>
     )
 }
