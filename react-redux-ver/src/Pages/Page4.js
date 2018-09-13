@@ -37,6 +37,14 @@ const page4 = ( props ) => {
                 <option value='vertical'>vertical</option>
             </select>
 
+            <label style={style}>select time between shots</label>
+            <select style={style} onChange={props.changePhoto} value={props.state.photoDelay}>
+                <option value='5'>5</option>
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='20'>20</option>
+            </select>
+
             <button style={style} onClick={props.click}>go to page 5 [CAMERA]</button>
         </div>
     )

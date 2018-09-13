@@ -6,6 +6,7 @@ import Page3 from './Pages/Page3';
 import Page4 from './Pages/Page4';
 import Page5 from './Pages/Page5';
 import Page6 from './Pages/Page6';
+import PageAdmin from './Pages/PageAdmin';
 
 class App extends Component {
   state = {
@@ -15,7 +16,10 @@ class App extends Component {
     frame: 'frame_1',
     filter: 'filter_1',
     layout: 'square_1',
-    copyAmount: 1
+    copyAmount: 1,
+    photoDelay: 5,
+    workTime: 1,
+    timeRemaining: 3600
   }
 
   nextPageHandler = (newActivePage) => {
@@ -42,9 +46,44 @@ class App extends Component {
     this.setState( { layout: evt.target.value } )
   }
 
+  changePhotoDelayHandler = (evt) => {
+    this.setState( { photoDelay: evt.target.value } )
+  }
+  
+  changeWorkTimeHandler = (evt) => {
+    this.setState( { workTime: evt.target.value * 3600 } )
+  }
+
   changeCopyAmountHandler = (evt) => {
     this.setState( { copyAmount: evt.target.value } )
     console.log('PRINTING...')
+  }
+
+  changeRemainingTimeHandler = (newVal) => {
+    this.setState( { timeRemaining: newVal } )
+  }
+
+  startTimerHandler = () => {
+    const that = this;
+    var timer = this.state.workTime, minutes, seconds;
+    var interval = setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        // that.state.timeRemaining = minutes + ":" + seconds;
+        that.changeRemainingTimeHandler(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+          timer = this.state.timeRemaining;
+        }
+        if (timer === 0) {
+          alert('end time!');
+          clearInterval(interval);
+        }
+    }, 1000);
   }
 
   render() {
@@ -79,6 +118,7 @@ class App extends Component {
           changeFrame={this.changeFrameHandler}
           changeFilter={this.changeFilterHandler}
           changeLayout={this.changeLayoutHandler} 
+          changePhoto={this.changePhotoDelayHandler}
         />
     } else if (this.state.activePage === 5) {
       content = 
@@ -93,11 +133,21 @@ class App extends Component {
           click={this.nextPageHandler.bind(this, 3)} 
           changeCopyAmount={this.changeCopyAmountHandler}
         />
+    } else if (this.state.activePage === 'admin') {
+      content = 
+        <PageAdmin 
+          state={this.state} 
+          click={this.nextPageHandler.bind(this, 1)} 
+          changeWorkTime={this.changeWorkTimeHandler}
+          startTimer={this.startTimerHandler}
+        />
     }
 
     return (
       <div className="App">
         <h1>HW Booth start page</h1>
+        <span>remaining time: {this.state.timeRemaining}</span>
+        <button onClick={this.nextPageHandler.bind(this, 'admin')}>admin</button>
         <div className='values-list'>
           <span>active page: {this.state.activePage}</span>
           <span>current title: {this.state.title}</span>
@@ -105,7 +155,9 @@ class App extends Component {
           <span>current frame: {this.state.frame}</span>
           <span>current filter: {this.state.filter}</span>
           <span>current layout: {this.state.layout}</span>
+          <span>current photoDelay: {this.state.photoDelay}</span>
           <span>current copyAmount: {this.state.copyAmount}</span>
+          <span>current work time: {this.state.workTime}</span>
         </div>
         {content}
       </div>
