@@ -76,13 +76,15 @@ class App extends Component {
         // that.state.timeRemaining = minutes + ":" + seconds;
         that.changeRemainingTimeHandler(minutes + ":" + seconds);
 
-        if (--timer < 0) {
-          timer = this.state.timeRemaining;
-        }
         if (timer === 0) {
           alert('end time!');
           clearInterval(interval);
+          return;
         }
+        if (--timer < 0) {
+          timer = this.state.timeRemaining;
+        }
+      
     }, 1000);
   }
 
