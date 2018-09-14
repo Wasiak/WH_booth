@@ -51,7 +51,7 @@ class App extends Component {
   }
   
   changeWorkTimeHandler = (evt) => {
-    this.setState( { workTime: evt.target.value * 3600 } )
+    this.setState( { workTime: Math.floor(evt.target.value * 3600) } )
   }
 
   changeCopyAmountHandler = (evt) => {
@@ -65,18 +65,15 @@ class App extends Component {
 
   startTimerHandler = () => {
     const that = this;
-    var timer = this.state.workTime, minutes, seconds;
-    var interval = setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
+    let timer = this.state.workTime, minutes, seconds;
+    const interval = setInterval(() => {
+      console.log(timer)
+        minutes = parseInt(timer / 60, 10).toString().padStart(2, 0);
+        seconds = parseInt(timer % 60, 10).toString().padStart(2, 0);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        // that.state.timeRemaining = minutes + ":" + seconds;
         that.changeRemainingTimeHandler(minutes + ":" + seconds);
 
-        if (timer === 0) {
+        if (timer <= 0) {
           alert('end time!');
           clearInterval(interval);
           return;
