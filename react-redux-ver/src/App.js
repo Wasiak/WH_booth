@@ -64,6 +64,7 @@ class App extends Component {
   }
 
   startTimerHandler = () => {
+    // timer to fix to work propper comparing timstamp and browser delay
     const that = this;
     let timer = this.state.workTime, minutes, seconds;
     const interval = setInterval(() => {
