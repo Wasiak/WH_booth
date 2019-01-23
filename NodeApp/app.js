@@ -71,5 +71,5 @@ http.createServer((request, response) => {
         }
     });
 }).listen(port, hostname, () => {
-    console.log(`Server started on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 })
