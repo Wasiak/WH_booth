@@ -6,7 +6,7 @@ const page1 = ( props ) => {
         <div className='Page'>
             <p>this is welcome page 1</p>
             <p>here company name, logo, some samples</p>
-            <button onClick={props.click}>Start personalization</button>
+            <button onClick={props.click}>Start</button>
         </div>
     )
 }
